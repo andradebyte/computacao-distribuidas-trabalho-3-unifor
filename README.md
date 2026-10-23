@@ -25,7 +25,7 @@ Todos os testes foram executados em um único equipamento. O Locust, o Nginx, o 
 | Memória | 16 GB |
 | Sistema operacional | macOS 26.7.1 |
 | Docker | Docker Desktop, engine 29.8.2 (`aarch64`) |
-| Recursos da VM do Docker | 10 CPUs e ~7,75 GiB de memória |
+| Recursos da VM do Docker | 10 CPUs e ~7,75 GiB de memória (`docker info`; o painel do Docker Desktop mostra 7,57 GB) |
 
 ## Arquitetura
 
@@ -75,7 +75,7 @@ Locust ──► nginx ─────────┼──► wordpress (répli
 
 O Locust tem uma interface web, que o contêiner `locust` expõe em `http://localhost:8089`. Nela se informa o número de usuários, o ramp up (usuários criados por segundo) e o host, e se acompanham estatísticas e gráficos ao vivo.
 
-<img src="locust/locust_interface.png" alt="Tela inicial da interface web do Locust" width="700">
+<img src="docs/imgs/locust.png" alt="Tela inicial da interface web do Locust" width="700">
 
 **Decidimos não usá-la nos testes do trabalho.** Eles foram executados no modo sem interface (`--headless`) pelo `scripts/run_all.py`, pelos motivos abaixo:
 
@@ -137,6 +137,20 @@ projeto3-wordpress-2   wordpress:5.4.2-php7.2-apache   Up 5 seconds (healthy)   
 projeto3-wordpress-3   wordpress:5.4.2-php7.2-apache   Up 4 seconds (healthy)   80/tcp
 ```
 
+## Docker Desktop
+
+Painel do Docker Desktop com os 7 contêineres do projeto: as 3 réplicas do WordPress, o Nginx, o MySQL e o Locust.
+
+<img src="docs/imgs/docker.png" alt="Docker Desktop com os contêineres do projeto" width="700">
+
+O selo **AMD** ao lado do `db-1` indica que o MySQL roda como `linux/amd64`, emulado no processador ARM do Mac (ver Limitações).
+
+## Website funcionando
+
+Acesso em `http://frontend.test`. A página inicial lista os posts dos cenários; na imagem, o post do cenário 3 (imagem de ~300 KB).
+
+<img src="docs/imgs/wordpress.png" alt="Website WordPress em frontend.test" width="700">
+
 ## Balanceamento de carga (Round Robin)
 
 Seis requisições seguidas. O cabeçalho `X-Upstream` alterna entre os três IPs dos WordPress:
@@ -156,17 +170,47 @@ X-Upstream: 172.30.0.130:80
 
 ## Resultados
 
-Cada figura tem dois painéis: **usuários** no eixo X (uma linha por número de instâncias) e **instâncias** no eixo X (uma linha por número de usuários). O **p95** é o tempo abaixo do qual ficam 95% das respostas, ou seja, mostra o que a maioria dos usuários sente nos piores momentos, sem ser distorcido por poucos casos extremos.
+Cada gráfico (exceto o de percentis) tem dois painéis: **usuários** no eixo X (uma linha por número de instâncias) e **instâncias** no eixo X (uma linha por número de usuários). Abaixo de cada gráfico está a análise do que ele mostra. Os tempos de "post" e de "imagem" citados vêm das linhas separadas dos CSVs de `results/`.
 
-A figura de **distribuição de percentis** de cada cenário mostra a curva inteira: o eixo X é o percentil (50%, 90%, 95%, 99%, ..., 100% = a resposta mais lenta), o eixo Y é o tempo de resposta, há um painel por número de usuários e uma linha por número de instâncias. Uma curva que fica baixa e plana indica respostas rápidas e uniformes. Um "degrau" ou uma subida no final indica uma cauda de respostas lentas.
+O **p95** é o tempo abaixo do qual ficam 95% das respostas, ou seja, mostra o que a maioria dos usuários sente nos piores momentos, sem ser distorcido por poucos casos extremos.
+
+A figura de **distribuição de percentis** mostra a curva inteira: o eixo X é o percentil (50%, 90%, 95%, 99%, ..., 100% = a resposta mais lenta), o eixo Y é o tempo de resposta, há um painel por número de usuários e uma linha por número de instâncias. A curva sempre sobe da esquerda para a direita, porque os tempos estão ordenados do mais rápido ao mais lento. O que importa é onde e quanto ela sobe: uma curva baixa e plana indica respostas rápidas e uniformes, e um "degrau" ou uma subida no final indica uma cauda de respostas lentas.
 
 ### Cenário 1 – post com imagem de ~1 MB
 
-<img src="graficos/cenario1_tempo_medio.png" alt="Cenário 1 – tempo médio" width="700">
-<img src="graficos/cenario1_p95.png" alt="Cenário 1 – p95" width="700">
-<img src="graficos/cenario1_percentis.png" alt="Cenário 1 – distribuição de percentis" width="900">
-<img src="graficos/cenario1_req_por_s.png" alt="Cenário 1 – requisições por segundo" width="700">
-<img src="graficos/cenario1_falhas.png" alt="Cenário 1 – taxa de falhas" width="700">
+#### Tempo médio de resposta
+
+<img src="graficos/cenario1_tempo_medio.png" alt="Cenário 1 – Tempo médio de resposta" width="700">
+
+Com 10 e 100 usuários as três linhas ficam praticamente sobrepostas (9 a 15 ms): o número de instâncias não mudou o tempo médio. Essa média mistura as duas requisições de cada visita, o post (16 a 28 ms) e a imagem de 1 MB (2 a 3 ms), e por isso é baixa. O tempo é maior com 10 usuários (15 ms) do que com 100 (9 ms), o contrário do que se esperaria; a causa não foi determinada (uma hipótese é que processos do Apache/PHP e caches fiquem mais "aquecidos" com tráfego contínuo). Com 1000 usuários a média sobe para 312 a 381 ms e **cai** com mais instâncias (381, 321 e 312 ms). Isso não é melhora: é coerente com a média misturar erros `HTTP 500`, que são rápidos, e as falhas subirem de 58% para 72% (gráfico de falhas). Para 1000 usuários o p95 é mais confiável.
+
+#### Percentil 95 (p95)
+
+<img src="graficos/cenario1_p95.png" alt="Cenário 1 – Percentil 95 (p95)" width="700">
+
+Com 10 usuários o p95 é de 38 a 39 ms (95% das respostas levaram até ~39 ms) e com 100 usuários cai para 20 a 25 ms. Com 1000 usuários salta para 1.600 ms (1 instância), 1.800 ms (2) e 2.200 ms (3): os 5% mais lentos esperam de 1,6 a 2,2 s, e **mais instâncias pioram esse valor**. No painel da direita, a linha de 1000 usuários sobe com as instâncias, enquanto as de 10 e 100 usuários ficam planas na base.
+
+#### Requisições por segundo
+
+<img src="graficos/cenario1_req_por_s.png" alt="Cenário 1 – Requisições por segundo" width="700">
+
+A vazão acompanha os usuários até 100: ~10 req/s com 10 usuários e ~100 req/s com 100 usuários, nas três arquiteturas. É o que os usuários geram (cada um faz uma visita a cada ~2 s, com 2 requisições: post e imagem), e não o limite do servidor. Com 1000 usuários a vazão fica em 494 a 515 req/s: 10× mais usuários deram só ~5× mais req/s, sinal de saturação. O número de instâncias não aumentou a vazão (514, 515 e 494 req/s com 1, 2 e 3 instâncias). Parte da diferença para o esperado (~1.000 req/s) vem de o Locust não pedir a imagem quando o post falha.
+
+#### Taxa de falhas
+
+<img src="graficos/cenario1_falhas.png" alt="Cenário 1 – Taxa de falhas" width="700">
+
+Não houve falhas até 100 usuários. Com 1000 usuários a taxa agregada é de 57,8% (1 instância), 65,2% (2) e 71,8% (3): **aumenta com mais instâncias**. Essa taxa é diluída pelas imagens, que quase não falham. Olhando só o post, a falha é de 73,5%, 79,2% e 83,6% (com 3 instâncias, por exemplo, 21.334 falhas em 25.520 pedidos do post, contra 0 falhas em 4.186 pedidos da imagem). Os erros são `HTTP 500` do WordPress, causados pelo limite de conexões do MySQL (ver a Análise geral): como o banco é compartilhado, mais instâncias significam mais processos disputando as mesmas 151 conexões.
+
+#### Distribuição de percentis
+
+<img src="graficos/cenario1_percentis.png" alt="Cenário 1 – Distribuição de percentis" width="900">
+
+**10 usuários:** a curva sobe de ~13 ms (mediana) para 45 a 47 ms no percentil 99, e o máximo fica entre 49 e 56 ms; 99% das respostas levaram até ~47 ms nas três arquiteturas. Com só ~600 requisições, o percentil 99,9 e o máximo são praticamente a mesma requisição.
+
+**100 usuários:** as curvas ficam baixas e próximas (até o percentil 98, todas em até 39 ms). A exceção é o final da linha de 2 instâncias: o percentil 99,9 chega a 290 ms (máximo de 320 ms), contra 52 ms com 1 instância e 94 ms com 3. Esse 0,1% são apenas 6 requisições em ~6.000, todas do post (as imagens ficaram em até 66 ms), sem nenhuma falha. A causa não pode ser determinada com estes dados. O mesmo padrão (percentil 99,9 maior com 2 instâncias) aparece de forma mais fraca nos cenários 2 e 3 com 100 usuários, então pode não ser só acaso, mas, com uma única execução por combinação, não dá para afirmar. Ele também não indica que 3 instâncias sejam melhores que 2.
+
+**1000 usuários:** a curva tem um degrau. Com 2 e 3 instâncias a mediana é de 7 a 10 ms e até o percentil 80 as respostas ficam em ~100 ms ou menos, mas no percentil 90 já são 1.600 ms, e o máximo chega a 3,7 e 3,9 s. Com 1 instância a subida começa mais cedo (mediana de 88 ms e percentil 80 em 1.200 ms). A parte rápida da curva é coerente com os erros `HTTP 500` serem respostas rápidas (65 a 72% das requisições falharam nessas execuções), mas isso não foi verificado resposta por resposta.
 
 <details>
 <summary>Tabela completa</summary>
@@ -187,11 +231,39 @@ A figura de **distribuição de percentis** de cada cenário mostra a curva inte
 
 ### Cenário 2 – post com texto de ~400 KB
 
-<img src="graficos/cenario2_tempo_medio.png" alt="Cenário 2 – tempo médio" width="700">
-<img src="graficos/cenario2_p95.png" alt="Cenário 2 – p95" width="700">
-<img src="graficos/cenario2_percentis.png" alt="Cenário 2 – distribuição de percentis" width="900">
-<img src="graficos/cenario2_req_por_s.png" alt="Cenário 2 – requisições por segundo" width="700">
-<img src="graficos/cenario2_falhas.png" alt="Cenário 2 – taxa de falhas" width="700">
+#### Tempo médio de resposta
+
+<img src="graficos/cenario2_tempo_medio.png" alt="Cenário 2 – Tempo médio de resposta" width="700">
+
+Neste cenário só há o post (sem imagem), então a média é o tempo do próprio post de 400 KB (~470 KB de HTML). Com 10 usuários é de 40 a 42 ms, bem acima dos cenários 1 e 3 (15 ms), onde a média é puxada para baixo pelas imagens, que são rápidas. Com 100 usuários cai para 25 a 27 ms com 1 e 2 instâncias, mas com 3 instâncias fica em 38 ms. Isso não é um valor isolado: a curva de percentis inteira dessa execução está deslocada para cima (mediana de 35 ms contra 23 a 25 ms). Com uma única execução por combinação, não dá para saber se é efeito da arquitetura ou acaso, e não concluímos que 3 instâncias sejam mais lentas. Com 1000 usuários a média vai a 601 ms (1 instância), 358 ms (2) e 364 ms (3); a queda é coerente com mais respostas de erro rápidas (as falhas sobem de 77% para 87%), e não com melhora real.
+
+#### Percentil 95 (p95)
+
+<img src="graficos/cenario2_p95.png" alt="Cenário 2 – Percentil 95 (p95)" width="700">
+
+Com 10 usuários o p95 é de 58 a 59 ms. Com 100 usuários é de 34 a 35 ms para 1 e 2 instâncias e de 63 ms para 3 instâncias (a mesma execução deslocada vista no tempo médio). Com 1000 usuários sobe para 1.900 ms (1 instância), 2.200 ms (2) e 2.600 ms (3): os 5% mais lentos esperam de 1,9 a 2,6 s e, como no cenário 1, **mais instâncias pioram** o valor. São os p95 mais altos entre os três cenários com 1000 usuários.
+
+#### Requisições por segundo
+
+<img src="graficos/cenario2_req_por_s.png" alt="Cenário 2 – Requisições por segundo" width="700">
+
+Com 10 usuários a vazão é de ~5 req/s e com 100 usuários, de ~49 req/s: metade dos cenários 1 e 3, porque aqui cada visita faz uma requisição só (o post), e não duas (post e imagem). Com 1000 usuários chega a 386 req/s (1 instância) e a ~424 req/s (2 e 3 instâncias): 10× mais usuários deram só ~8× mais req/s, e passar de 2 para 3 instâncias não alterou a vazão (424 e 423 req/s). É a menor vazão com 1000 usuários entre os cenários (os outros ficam em 494 a 545 req/s), o que vem em parte de cada visita ter uma requisição a menos.
+
+#### Taxa de falhas
+
+<img src="graficos/cenario2_falhas.png" alt="Cenário 2 – Taxa de falhas" width="700">
+
+Também não há falhas até 100 usuários. Com 1000 usuários é o cenário com mais falhas: 77,4% (1 instância), 84,5% (2) e 87,3% (3), subindo com as instâncias. Como não há imagem para diluir a taxa, ela é a do próprio post (com 3 instâncias, 22.226 falhas em 25.472 pedidos). São erros `HTTP 500`, e a explicação é a mesma do cenário 1: o limite de 151 conexões do MySQL, compartilhado por todas as instâncias.
+
+#### Distribuição de percentis
+
+<img src="graficos/cenario2_percentis.png" alt="Cenário 2 – Distribuição de percentis" width="900">
+
+**10 usuários:** a curva é mais alta que no cenário 1 (mediana de 38 a 40 ms, contra 13 ms), porque todas as requisições são do post de 400 KB; 99% das respostas levaram até ~68 ms e o máximo foi de 74 a 80 ms.
+
+**100 usuários:** com 1 e 2 instâncias a curva fica baixa (mediana de 23 a 25 ms, p99 de 45 e 55 ms). Com 3 instâncias toda a curva está deslocada para cima (mediana de 35 ms, p95 de 63 ms, p99 de 75 ms): não é um pico no final, e sim uma execução inteira mais lenta. O percentil 99,9 é o maior com 2 instâncias (130 ms, contra 67 e 97 ms), o mesmo padrão do cenário 1, com poucas requisições envolvidas (~3).
+
+**1000 usuários:** o mesmo degrau do cenário 1. Com 2 e 3 instâncias a mediana é de 10 a 11 ms e o percentil 80 fica em 100 a 110 ms, mas no percentil 90 já são 1.900 a 2.400 ms, com máximos de 4,1 e 4,3 s. Com 1 instância a curva é mais alta desde o início (mediana de 320 ms e percentil 80 em 1.500 ms).
 
 <details>
 <summary>Tabela completa</summary>
@@ -212,11 +284,39 @@ A figura de **distribuição de percentis** de cada cenário mostra a curva inte
 
 ### Cenário 3 – post com imagem de ~300 KB
 
-<img src="graficos/cenario3_tempo_medio.png" alt="Cenário 3 – tempo médio" width="700">
-<img src="graficos/cenario3_p95.png" alt="Cenário 3 – p95" width="700">
-<img src="graficos/cenario3_percentis.png" alt="Cenário 3 – distribuição de percentis" width="900">
-<img src="graficos/cenario3_req_por_s.png" alt="Cenário 3 – requisições por segundo" width="700">
-<img src="graficos/cenario3_falhas.png" alt="Cenário 3 – taxa de falhas" width="700">
+#### Tempo médio de resposta
+
+<img src="graficos/cenario3_tempo_medio.png" alt="Cenário 3 – Tempo médio de resposta" width="700">
+
+Parecido com o cenário 1: 15 a 16 ms com 10 usuários e 8 a 9 ms com 100 usuários, com as linhas sobrepostas (o número de instâncias não alterou o tempo médio). A média mistura o post (15 a 31 ms) e a imagem de 300 KB (1 a 2 ms). Com 1000 usuários vai a 377, 307 e 283 ms com 1, 2 e 3 instâncias. Aqui a queda **não** acompanha as falhas, que ficaram praticamente iguais (55 a 57%), então não se explica só por respostas de erro rápidas; a causa não foi determinada. O post tem média de 470 ms com 1 instância e 358 ms com 3.
+
+#### Percentil 95 (p95)
+
+<img src="graficos/cenario3_p95.png" alt="Cenário 3 – Percentil 95 (p95)" width="700">
+
+Com 10 usuários o p95 é de 38 a 43 ms e com 100 usuários, de 18 a 22 ms. Com 1000 usuários vai a 1.500 ms (1 e 2 instâncias) e 1.600 ms (3): é o menor p95 entre os cenários nessa carga e quase não muda com as instâncias, ao contrário dos cenários 1 e 2, em que ele piora.
+
+#### Requisições por segundo
+
+<img src="graficos/cenario3_req_por_s.png" alt="Cenário 3 – Requisições por segundo" width="700">
+
+Com 10 e 100 usuários a vazão é de ~10 e ~99 req/s, como no cenário 1. Com 1000 usuários chega a 514 req/s (1 instância), 546 (2) e 539 (3): é a maior vazão entre os cenários nessa carga, mas quase não varia com o número de instâncias (diferença de ~6%), e 10× mais usuários deram só ~5× mais req/s.
+
+#### Taxa de falhas
+
+<img src="graficos/cenario3_falhas.png" alt="Cenário 3 – Taxa de falhas" width="700">
+
+Não há falhas até 100 usuários. Com 1000 usuários a taxa agregada é de 56,8%, 55,0% e 57,3% (1, 2 e 3 instâncias): é a menor entre os cenários com 2 e 3 instâncias e, diferente dos outros, **não aumenta com as instâncias**. Só no post, a falha é de ~72% nas três arquiteturas (72,5%, 71,2% e 72,8%), e as imagens quase não falham (até 4 falhas em ~7.000 pedidos). A causa dos erros `HTTP 500` é a mesma dos outros cenários (limite de conexões do MySQL). Por que este cenário falha menos que o 1 não foi determinado: a diferença está só no tamanho da imagem, que não passa pelo banco, e pode ser acaso de uma execução.
+
+#### Distribuição de percentis
+
+<img src="graficos/cenario3_percentis.png" alt="Cenário 3 – Distribuição de percentis" width="900">
+
+**10 usuários:** curva parecida com a do cenário 1 (mediana de 14 ms, p99 de 44 a 54 ms). O percentil 99,9 da execução com 2 instâncias (96 ms) parece um pico, mas com ~600 requisições esse percentil é praticamente uma única requisição.
+
+**100 usuários:** curvas baixas e próximas (mediana de 11 a 12 ms, p99 de 23 a 32 ms, máximo de 56 a 68 ms). O padrão de percentil 99,9 maior com 2 instâncias é fraco aqui (65 ms contra 57 e 55 ms).
+
+**1000 usuários:** também há degrau, mas ele aparece mais cedo que nos cenários 1 e 2: com 2 e 3 instâncias a mediana é de 6 a 11 ms, porém o percentil 80 já está em ~900 ms (contra ~100 ms nos outros cenários) e o percentil 90 em 1.100 a 1.300 ms. É coerente com este cenário ter menos respostas rápidas (menos falhas), mas isso não foi verificado. Com 1 instância a mediana é de 120 ms. Os máximos ficam entre 2,4 e 3,7 s.
 
 <details>
 <summary>Tabela completa</summary>
@@ -235,26 +335,22 @@ A figura de **distribuição de percentis** de cada cenário mostra a curva inte
 
 </details>
 
-## Análise
+## Análise geral
 
-**Até 100 usuários o sistema não sofre, e o número de instâncias não faz diferença.** Não houve nenhuma falha e o tempo médio ficou entre 8 e 42 ms. As diferenças entre 1, 2 e 3 instâncias são de poucos milissegundos, dentro da variação esperada de uma única execução. As requisições por segundo seguem o que os usuários geram (com pausa média de 2 s, 100 usuários produzem ~50 ciclos por segundo, ou ~100 req/s com imagem e ~50 req/s no cenário de texto), e não o que o servidor consegue atender. Uma instância já dá conta dessa carga.
+**Até 100 usuários o sistema não sofre, e o número de instâncias não faz diferença.** Não houve nenhuma falha e o tempo médio ficou entre 8 e 42 ms. As diferenças entre 1, 2 e 3 instâncias são de poucos milissegundos, dentro da variação de uma única execução. A vazão segue o que os usuários geram, e não o que o servidor consegue atender: uma instância já dá conta dessa carga.
 
-**O cenário 2 (texto de 400 KB) é o mais lento por requisição.** Com 100 usuários e 3 instâncias, o post de texto leva ~38 ms, enquanto o post dos cenários 1 e 3 leva ~16 ms (a página tem ~60 KB) e a imagem apenas 1,5 a 2,2 ms. Nos cenários 1 e 3 a média agregada mistura post e imagem, e a imagem é muito rápida, o que reduz a média. Entre as imagens de 1 MB e 300 KB a diferença é mínima, porque o tráfego é local, sem rede real. O custo está em gerar a página (PHP + banco), não em transferir o arquivo.
+**O cenário 2 (texto de 400 KB) é o mais lento por requisição.** Com 10 e 100 usuários a mediana do post de texto é de 23 a 40 ms, contra 11 a 14 ms nos cenários 1 e 3, onde metade das requisições são imagens de ~2 ms. Entre as imagens de 1 MB e 300 KB a diferença é mínima (2 a 3 ms contra 1 a 2 ms), porque o tráfego é local, sem rede real. O custo está em gerar a página (PHP + banco), não em transferir o arquivo.
 
-**Com 1000 usuários o sistema falha, e adicionar instâncias não resolve.** As falhas ficaram entre 55% e 87% e o p95 subiu para 1,5 a 2,6 s. A taxa de falhas **não diminuiu** com mais instâncias em nenhum cenário. No cenário 1 subiu de 57,8% para 65,2% e 71,8%. No cenário 2, de 77,4% para 84,5% e 87,3%. No cenário 3 ficou estável, entre 55% e 57%.
+**Com 1000 usuários o sistema falha, e adicionar instâncias não resolve.** As falhas ficaram entre 55% e 87% e o p95 subiu para 1,5 a 2,6 s. A taxa de falhas **não diminuiu** com mais instâncias em nenhum cenário.
 
 **A causa identificada é o limite de conexões do MySQL, compartilhado por todas as instâncias.**
 
-- Quase todas as falhas são `HTTP 500` no **post**. No cenário 1 com 3 instâncias: 21.334 falhas em 25.520 pedidos do post, contra 0 falhas em 4.186 pedidos da imagem. A imagem é servida direto do disco pelo Apache e não usa o banco.
+- Quase todas as falhas são `HTTP 500` no **post**. As imagens são servidas direto do disco pelo Apache e não usam o banco, e quase não falham.
 - O MySQL está com `max_connections = 151` (padrão). Depois da execução com 3 instâncias ele registrava `Connection_errors_max_connections = 19.121` e `Max_used_connections = 152`: o limite foi atingido e conexões foram recusadas.
 - O log do Apache também registrou `server reached MaxRequestWorkers` (limite padrão de 150 processos por instância).
 - Mais instâncias significam mais processos tentando abrir conexões contra o **mesmo** limite do banco.
 
-O **tempo médio** com 1000 usuários mistura respostas de erro, que são rápidas, com respostas bem-sucedidas, que são lentas. Por isso o p95 descreve melhor o que o usuário sente.
-
-A **distribuição de percentis** com 1000 usuários mostra isso: nas execuções com 2 e 3 instâncias, até cerca de 80% das respostas levam ~100 ms ou menos, e a partir daí a curva dispara para 1,5 a 4 s. Esse degrau é coerente com a maioria das respostas serem erros rápidos, com as demais formando a cauda lenta, mas essa leitura não foi verificada resposta a resposta. Com 10 e 100 usuários as curvas ficam baixas e próximas.
-
-**Pico isolado no percentil 99,9 (cenário 1, 100 usuários, 2 instâncias):** nessa execução o 0,1% mais lento chegou a ~290 ms (máximo de 320 ms), contra ~52 ms com 1 instância e ~94 ms com 3 instâncias. Mas esse 0,1% são apenas **6 requisições** em ~6.000, todas do post (as imagens ficaram em 66 ms no pior caso), e não houve nenhuma falha. A causa não pode ser determinada com estes dados: pode ser uma instância num momento ruim, uso de CPU do próprio Mac, o MySQL emulado ou o Locust disputando CPU na mesma máquina. Como cada combinação foi executada uma única vez, não dá para saber se o pico é típico de 2 instâncias ou acaso, e ele **não indica que 3 instâncias sejam melhores que 2**. Para confirmar seria preciso repetir a execução várias vezes.
+O **tempo médio** com 1000 usuários mistura respostas de erro, que são rápidas, com respostas bem-sucedidas, que são lentas. Por isso o p95 e a distribuição de percentis descrevem melhor o que o usuário sente.
 
 ## Limitações
 
