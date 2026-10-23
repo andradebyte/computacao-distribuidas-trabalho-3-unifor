@@ -1,0 +1,29 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/theme.json",
+	"version": 3,
+	"title": "Heritage",
+	"description": "A traditional high street agency. Serif headings, forest and claret, rounded but restrained.",
+	"settings": {
+		"color": {
+			"palette": [
+				{ "slug": "base", "color": "#fffdf9", "name": "Paper" },
+				{ "slug": "surface", "color": "#f5f1e8", "name": "Surface" },
+				{ "slug": "surface-2", "color": "#e8e0d1", "name": "Deep surface" },
+				{ "slug": "ink", "color": "#1e2a22", "name": "Ink" },
+				{ "slug": "ink-soft", "color": "#2c3d31", "name": "Soft ink" },
+				{ "slug": "muted", "color": "#63705f", "name": "Muted" },
+				{ "slug": "line", "color": "#ded5c4", "name": "Line" },
+				{ "slug": "accent", "color": "#1f4d35", "name": "Accent" },
+				{ "slug": "accent-deep", "color": "#153826", "name": "Deep accent" },
+				{ "slug": "highlight", "color": "#8c2f39", "name": "Highlight" }
+			]
+		},
+		"custom": {
+			"radius": "10px",
+			"radiusSmall": "6px",
+			"headingFamily": "var(--wp--preset--font-family--serif)",
+			"headingWeight": "600",
+			"headingTracking": "-0.008em"
+		}
+	}
+}

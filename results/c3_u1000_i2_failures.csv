@@ -1,0 +1,6 @@
+Method,Name,Error,Occurrences
+GET,post,HTTPError('500 Server Error: Internal Server Error for url: post'),17988
+GET,imagem,HTTPError('500 Server Error: Internal Server Error for url: imagem'),3
+GET,post,RemoteDisconnected('Remote end closed connection without response'),46
+GET,post,"ConnectionResetError(104, 'Connection reset by peer')",7
+GET,imagem,RemoteDisconnected('Remote end closed connection without response'),1

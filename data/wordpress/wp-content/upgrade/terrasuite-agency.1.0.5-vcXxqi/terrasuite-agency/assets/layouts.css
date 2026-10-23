@@ -1,0 +1,793 @@
+/*
+ * Layouts.
+ *
+ * A style variation can only change tokens. This file is the other half: the
+ * arrangement. Every rule is scoped to a body class written by the theme, so
+ * changing design moves things around without touching a template or a line of
+ * anybody's content.
+ *
+ * Three axes, applied independently:
+ *
+ *   .ts-hero-photo / -split / -carousel / -panel / -compact / -panel-search
+ *   .ts-cards-grid / -wide / -list / -masonry / -overlay
+ *   .ts-header-left / -centred / -contact
+ *
+ * Colours, radii and type are never set here. They come from the tokens, so
+ * every layout works under every palette and neither has to know about the
+ * other.
+ */
+
+/* ================================================================ headers */
+
+.ts-header-centred .ts-header__inner {
+	display: grid;
+	justify-items: center;
+	gap: 0.5rem;
+	text-align: center;
+}
+
+.ts-header-centred .ts-header__inner .wp-block-navigation {
+	justify-content: center;
+}
+
+.ts-header-contact .ts-contact-bar {
+	display: block;
+	background: var(--wp--preset--color--ink);
+	color: var(--wp--preset--color--base);
+	font-size: 0.85rem;
+}
+
+.ts-contact-bar {
+	display: none;
+}
+
+.ts-contact-bar__inner {
+	max-width: 1360px;
+	margin-inline: auto;
+	padding: 0.5rem var(--wp--preset--spacing--40);
+	display: flex;
+	flex-wrap: wrap;
+	gap: 0.5rem 1.5rem;
+	justify-content: flex-end;
+}
+
+.ts-contact-bar a {
+	color: inherit;
+	text-decoration: none;
+}
+
+.ts-contact-bar a:hover {
+	text-decoration: underline;
+}
+
+/* ================================================================== heroes */
+
+/*
+ * The default, .ts-hero-photo, is styled in agency.css. Everything below
+ * rearranges that same markup rather than requiring different markup, because
+ * the hero lives in the front page content and an agency may have edited it.
+ */
+
+/* ---------------------------------------------------------------- split */
+
+.ts-hero-split .ts-hero {
+	min-height: 0;
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+	align-items: stretch;
+	background: var(--wp--preset--color--surface);
+}
+
+.ts-hero-split .ts-hero__media {
+	position: relative;
+	inset: auto;
+	z-index: 0;
+	min-height: clamp(22rem, 46vh, 34rem);
+	order: 2;
+}
+
+/* No dark wash over a photograph that no longer has type on top of it. */
+.ts-hero-split .ts-hero::after {
+	display: none;
+}
+
+.ts-hero-split .ts-hero__inner {
+	order: 1;
+	max-width: none;
+	margin: 0;
+	color: var(--wp--preset--color--ink);
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	padding: clamp(2rem, 4vw, 4rem);
+}
+
+.ts-hero-split .ts-hero h1,
+.ts-hero-split .ts-hero__lead,
+.ts-hero-split .ts-hero__trust {
+	color: inherit;
+	text-shadow: none;
+}
+
+.ts-hero-split .ts-hero__lead,
+.ts-hero-split .ts-hero__trust {
+	opacity: 0.8;
+}
+
+.ts-hero-split .ts-hero .terrasuite-search {
+	box-shadow: none;
+	padding: 0;
+	max-width: none;
+	background: transparent;
+}
+
+/* Boutique reverses the halves and gives everything more air. */
+.ts-layout-boutique .ts-hero__media {
+	order: 1;
+}
+
+.ts-layout-boutique .ts-hero__inner {
+	order: 2;
+	padding: clamp(3rem, 6vw, 6rem);
+}
+
+@media (max-width: 900px) {
+	.ts-hero-split .ts-hero {
+		grid-template-columns: 1fr;
+	}
+
+	.ts-hero-split .ts-hero__media {
+		order: 1;
+		min-height: 16rem;
+	}
+
+	.ts-hero-split .ts-hero__inner,
+	.ts-layout-boutique .ts-hero__inner {
+		order: 2;
+		padding: 2rem 1.25rem 2.5rem;
+	}
+}
+
+/* ---------------------------------------------------------------- panel */
+
+/*
+ * No photograph at all. This is the fastest layout in the theme by a wide
+ * margin: there is no hero image to download before anything is readable.
+ */
+.ts-hero-panel .ts-hero__media {
+	display: none;
+}
+
+.ts-hero-panel .ts-hero::after {
+	background: none;
+	background-color: var(--wp--preset--color--ink);
+}
+
+.ts-hero-panel .ts-hero {
+	min-height: 0;
+}
+
+.ts-hero-panel .ts-hero__inner {
+	padding-block: clamp(3.5rem, 8vw, 7rem);
+}
+
+.ts-hero-panel .ts-hero h1 {
+	font-size: clamp(2.6rem, 1.6rem + 4vw, 5rem);
+	max-width: none;
+	text-shadow: none;
+}
+
+.ts-hero-panel .ts-hero__lead {
+	text-shadow: none;
+}
+
+/* --------------------------------------------------------------- compact */
+
+.ts-hero-compact .ts-hero {
+	min-height: clamp(16rem, 34vh, 24rem);
+}
+
+.ts-hero-compact .ts-hero__trust {
+	display: none;
+}
+
+.ts-hero-compact .ts-hero h1 {
+	font-size: clamp(1.9rem, 1.4rem + 2vw, 3rem);
+	margin-bottom: 0.35rem;
+}
+
+.ts-hero-compact .ts-hero__lead {
+	display: none;
+}
+
+/* -------------------------------------------------------------- carousel */
+
+.ts-hero-carousel .ts-hero__media {
+	display: none;
+}
+
+.ts-hero-carousel .ts-hero {
+	min-height: 0;
+}
+
+.ts-hero-carousel .ts-hero__inner {
+	padding-block: clamp(2rem, 4vw, 3.5rem);
+}
+
+/* The carousel itself is printed by the theme immediately before the hero. */
+.ts-showcase {
+	position: relative;
+	left: 50%;
+	transform: translateX(-50%);
+	width: 100vw;
+	max-width: 100vw;
+	overflow: hidden;
+	background: var(--wp--preset--color--ink);
+}
+
+.ts-showcase__track {
+	display: flex;
+	transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+	will-change: transform;
+}
+
+.ts-showcase__slide {
+	position: relative;
+	flex: 0 0 100%;
+	min-height: clamp(24rem, 56vh, 40rem);
+	display: block;
+	color: #fff;
+	text-decoration: none;
+}
+
+.ts-showcase__slide img {
+	position: absolute;
+	inset: 0;
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+}
+
+.ts-showcase__slide::after {
+	content: "";
+	position: absolute;
+	inset: 0;
+	background: linear-gradient(180deg, rgba(8, 14, 20, 0.15) 40%, rgba(8, 14, 20, 0.78) 100%);
+}
+
+.ts-showcase__caption {
+	position: absolute;
+	inset: auto 0 0 0;
+	z-index: 2;
+	max-width: 1360px;
+	margin-inline: auto;
+	padding: clamp(1.5rem, 4vw, 3rem) var(--wp--preset--spacing--40);
+}
+
+.ts-showcase__caption strong {
+	display: block;
+	font-size: clamp(1.3rem, 1rem + 1.4vw, 2.2rem);
+	line-height: 1.15;
+	margin-bottom: 0.3rem;
+}
+
+.ts-showcase__price {
+	font-weight: 680;
+	letter-spacing: -0.01em;
+}
+
+.ts-showcase__nav {
+	position: absolute;
+	inset: auto 0 0 0;
+	z-index: 3;
+	display: flex;
+	gap: 0.4rem;
+	justify-content: center;
+	padding: 0.9rem;
+}
+
+.ts-showcase__dot {
+	width: 2rem;
+	height: 0.25rem;
+	border: 0;
+	padding: 0;
+	border-radius: 999px;
+	background: rgba(255, 255, 255, 0.4);
+	cursor: pointer;
+}
+
+.ts-showcase__dot[aria-current="true"] {
+	background: #fff;
+}
+
+.ts-showcase__arrow {
+	position: absolute;
+	top: 50%;
+	z-index: 3;
+	transform: translateY(-50%);
+	width: 2.75rem;
+	height: 2.75rem;
+	border: 0;
+	border-radius: 50%;
+	background: rgba(255, 255, 255, 0.85);
+	color: #111;
+	font-size: 1.2rem;
+	line-height: 1;
+	cursor: pointer;
+}
+
+.ts-showcase__arrow--prev { left: 1rem; }
+.ts-showcase__arrow--next { right: 1rem; }
+
+@media (max-width: 600px) {
+	.ts-showcase__arrow { display: none; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+	.ts-showcase__track { transition: none; }
+}
+
+/* ================================================================== cards */
+
+/*
+ * The plugin draws the cards. These rules reshape what it drew, so a layout
+ * change needs no plugin change and no template override.
+ */
+
+/* ----------------------------------------------------------------- wide */
+
+.ts-cards-wide .terrasuite-results__grid {
+	grid-template-columns: repeat(auto-fill, minmax(min(100%, 30rem), 1fr));
+}
+
+.ts-cards-wide .terrasuite-card {
+	display: grid;
+	grid-template-columns: 44% 1fr;
+	align-items: stretch;
+}
+
+.ts-cards-wide .terrasuite-card__media {
+	height: 100%;
+	min-height: 13rem;
+}
+
+.ts-cards-wide .terrasuite-card__media img {
+	height: 100%;
+	object-fit: cover;
+}
+
+@media (max-width: 560px) {
+	.ts-cards-wide .terrasuite-card {
+		grid-template-columns: 1fr;
+	}
+}
+
+/* ----------------------------------------------------------------- list */
+
+.ts-cards-list .terrasuite-results__grid {
+	grid-template-columns: 1fr;
+	gap: 1rem;
+}
+
+.ts-cards-list .terrasuite-card {
+	display: grid;
+	grid-template-columns: 22rem 1fr;
+	align-items: stretch;
+}
+
+.ts-cards-list .terrasuite-card__media {
+	min-height: 15rem;
+}
+
+.ts-cards-list .terrasuite-card__media img {
+	height: 100%;
+	object-fit: cover;
+}
+
+.ts-cards-list .terrasuite-card__body {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	padding: clamp(1rem, 2vw, 2rem);
+}
+
+/* A list has room for the description a grid has to hide. */
+.ts-cards-list .terrasuite-card__summary {
+	display: block;
+}
+
+@media (max-width: 780px) {
+	.ts-cards-list .terrasuite-card {
+		grid-template-columns: 1fr;
+	}
+
+	.ts-cards-list .terrasuite-card__media {
+		min-height: 12rem;
+	}
+}
+
+/* -------------------------------------------------------------- masonry */
+
+.ts-cards-masonry .terrasuite-results__grid {
+	display: block;
+	columns: 3 20rem;
+	column-gap: 1.25rem;
+}
+
+.ts-cards-masonry .terrasuite-card {
+	break-inside: avoid;
+	margin-bottom: 1.25rem;
+	display: inline-block;
+	width: 100%;
+}
+
+/* Vary the picture height so the columns actually stagger. */
+.ts-cards-masonry .terrasuite-card:nth-child(3n) .terrasuite-card__media img { aspect-ratio: 3 / 4; }
+.ts-cards-masonry .terrasuite-card:nth-child(3n + 1) .terrasuite-card__media img { aspect-ratio: 4 / 3; }
+.ts-cards-masonry .terrasuite-card:nth-child(3n + 2) .terrasuite-card__media img { aspect-ratio: 1 / 1; }
+
+.ts-cards-masonry .terrasuite-card__media img {
+	height: auto;
+	width: 100%;
+	object-fit: cover;
+}
+
+/* -------------------------------------------------------------- overlay */
+
+.ts-cards-overlay .terrasuite-card {
+	position: relative;
+	border: 0;
+	box-shadow: none;
+	background: transparent;
+	isolation: isolate;
+}
+
+.ts-cards-overlay .terrasuite-card__media {
+	border-radius: var(--ts-radius);
+	overflow: hidden;
+}
+
+.ts-cards-overlay .terrasuite-card__media img {
+	aspect-ratio: 4 / 3;
+	width: 100%;
+	object-fit: cover;
+}
+
+.ts-cards-overlay .terrasuite-card__media::after {
+	content: "";
+	position: absolute;
+	inset: 0;
+	border-radius: var(--ts-radius);
+	background: linear-gradient(180deg, rgba(8, 14, 20, 0) 45%, rgba(8, 14, 20, 0.82) 100%);
+}
+
+.ts-cards-overlay .terrasuite-card__body {
+	position: absolute;
+	inset: auto 0 0 0;
+	z-index: 2;
+	padding: 1.1rem 1.2rem;
+	color: #fff;
+}
+
+.ts-cards-overlay .terrasuite-card__body a,
+.ts-cards-overlay .terrasuite-card__price,
+.ts-cards-overlay .terrasuite-card__meta {
+	color: #fff;
+}
+
+.ts-cards-overlay .terrasuite-card__meta {
+	opacity: 0.85;
+}
+
+/* Boutique shows fewer, larger. */
+.ts-layout-boutique .terrasuite-results__grid {
+	grid-template-columns: repeat(auto-fill, minmax(min(100%, 26rem), 1fr));
+	gap: 2rem;
+}
+
+/* ============================================================ the gallery */
+
+/*
+ * THE PROPERTY GALLERY IS NOT THIS THEME'S.
+ *
+ * There used to be a `.ts-gallery` carousel here, with a track and slides and
+ * a reduced-motion rule, and a matching block in carousel.js. Nothing ever
+ * emitted those class names: the gallery markup is the plugin's, and it has
+ * always been `.terrasuite-gallery`. So the styles matched nothing, the script
+ * found nothing, and every property page on every site showed the plugin's
+ * plain grid while this theme carried a complete carousel for markup that did
+ * not exist.
+ *
+ * The behaviour now lives with the markup, in the plugin, where every theme
+ * gets it. This theme restyles it through the custom properties like anything
+ * else, and owns none of it.
+ */
+
+/* ====================================================== panel-search hero */
+
+/*
+ * The wide filter panel, taken from what agencies on this coast actually ship.
+ * The search runs the full width of the page and sits flush against the bottom
+ * of the photograph, rather than being a card floating in the middle of it, so
+ * every filter is side by side instead of stacked two or three across.
+ *
+ * A buyer for property abroad arrives knowing roughly all of them at once and
+ * resents being asked one at a time, which is why every site in this market has
+ * converged on the same shape.
+ */
+.ts-hero-panel-search .ts-hero {
+	min-height: clamp(26rem, 56vh, 40rem);
+	align-items: flex-end;
+}
+
+.ts-hero-panel-search .ts-hero__inner {
+	padding-bottom: 0;
+}
+
+.ts-hero-panel-search .ts-hero h1 {
+	max-width: none;
+}
+
+.ts-hero-panel-search .ts-hero__trust {
+	display: none;
+}
+
+.ts-hero-panel-search .terrasuite-search {
+	max-width: none;
+	border-radius: var(--ts-radius) var(--ts-radius) 0 0;
+	padding: clamp(1rem, 2vw, 1.6rem);
+	box-shadow: var(--ts-shadow-lift);
+	margin-bottom: -1px;
+}
+
+/*
+ * Narrower columns than the plugin's default so more of them fit on one line.
+ * The plugin already draws the row as a grid; this only changes how tightly it
+ * packs, which is the whole difference between three filters across and six.
+ */
+.ts-hero-panel-search .terrasuite-search__row {
+	grid-template-columns: repeat(auto-fit, minmax(9.5rem, 1fr));
+	gap: 0.6rem;
+}
+
+.ts-hero-panel-search .terrasuite-search__row > * {
+	min-width: 0;
+}
+
+.ts-hero-panel-search .terrasuite-field label {
+	font-size: 0.72rem;
+	margin-bottom: 0.2rem;
+}
+
+/* More options reads as the last item in the panel rather than a footnote
+   under it. */
+.ts-hero-panel-search .terrasuite-search__more {
+	margin-top: 0.75rem;
+	border-top: 1px solid var(--ts-line);
+	padding-top: 0.6rem;
+}
+
+.ts-hero-panel-search .terrasuite-search__more summary {
+	font-size: 0.85rem;
+}
+
+@media (max-width: 700px) {
+	.ts-hero-panel-search .terrasuite-search__row {
+		grid-template-columns: 1fr 1fr;
+	}
+
+	.ts-hero-panel-search .terrasuite-field--submit {
+		grid-column: 1 / -1;
+	}
+}
+
+/* ============================================================ badge stack */
+
+/*
+ * Several at once, which is the point. Reserved AND Reduced AND Exclusive is a
+ * normal state for a property on these sites, and showing only the first was
+ * throwing away information the agency had already entered.
+ */
+.terrasuite-card__badges {
+	position: absolute;
+	top: 0.6rem;
+	left: 0.6rem;
+	z-index: 2;
+	display: flex;
+	flex-wrap: wrap;
+	gap: 0.3rem;
+	max-width: calc(100% - 4rem);
+}
+
+.terrasuite-card__badge {
+	/* 0.75rem, not 0.68. Measured at 10.9px against an 11px floor - small
+	   caps on a photograph is exactly where type must not be marginal. */
+	font-size: 0.75rem;
+	font-weight: 700;
+	letter-spacing: 0.06em;
+	text-transform: uppercase;
+	padding: 0.25rem 0.5rem;
+	border-radius: var(--ts-radius-sm);
+	background: var(--wp--preset--color--ink);
+	color: var(--wp--preset--color--base);
+	line-height: 1.3;
+}
+
+.terrasuite-card__badge.is-status   { background: var(--wp--preset--color--muted); }
+.terrasuite-card__badge.is-reduced  { background: var(--wp--preset--color--accent-deep); }   /* highlight is 3.70:1 behind white text; 4.5 is the floor */
+.terrasuite-card__badge.is-featured { background: var(--wp--preset--color--accent); }
+.terrasuite-card__badge.is-new      { background: var(--wp--preset--color--accent-deep); }
+.terrasuite-card__badge.is-label    { background: color-mix(in srgb, var(--wp--preset--color--ink) 70%, transparent); }
+
+/* The old price, struck through, beside the new one. */
+.terrasuite-card__was {
+	color: var(--wp--preset--color--muted);
+	font-weight: 500;
+	margin-right: 0.4rem;
+	text-decoration-thickness: 1px;
+}
+
+/* ========================================================== browse tiles */
+
+/*
+ * Pick a place, or pick a kind of house. Every site worth copying opens with
+ * one of these, because somebody who has not decided on a town yet cannot use
+ * a search form.
+ */
+.terrasuite-browse {
+	margin-block: clamp(2rem, 5vw, 4rem);
+}
+
+.terrasuite-browse__heading {
+	text-align: center;
+	margin-bottom: 1.5rem;
+}
+
+.terrasuite-browse__grid {
+	display: grid;
+	grid-template-columns: repeat(auto-fill, minmax(min(100%, 14rem), 1fr));
+	gap: 1rem;
+}
+
+.terrasuite-browse__tile {
+	position: relative;
+	display: block;
+	border-radius: var(--ts-radius);
+	overflow: hidden;
+	text-decoration: none;
+	background: var(--wp--preset--color--surface);
+	min-height: 9rem;
+	isolation: isolate;
+}
+
+.terrasuite-browse__media {
+	position: absolute;
+	inset: 0;
+	z-index: -2;
+}
+
+.terrasuite-browse__media img {
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+	transition: transform 0.4s ease;
+}
+
+@media (hover: hover) {
+	.terrasuite-browse__tile:hover .terrasuite-browse__media img {
+		transform: scale(1.05);
+	}
+}
+
+.terrasuite-browse__tile::after {
+	content: "";
+	position: absolute;
+	inset: 0;
+	z-index: -1;
+	background: linear-gradient(180deg, rgba(8, 14, 20, 0.1) 40%, rgba(8, 14, 20, 0.75) 100%);
+}
+
+.terrasuite-browse__label {
+	position: absolute;
+	inset: auto 0 0 0;
+	padding: 0.9rem 1rem;
+	color: #fff;
+	display: grid;
+	gap: 0.1rem;
+}
+
+.terrasuite-browse__name {
+	font-weight: 660;
+	font-size: 1.05rem;
+	line-height: 1.2;
+}
+
+.terrasuite-browse__count {
+	font-size: 0.8rem;
+	opacity: 0.85;
+}
+
+/* Without a photograph the tile is a plain card rather than a dark box with
+   white text on nothing. */
+.terrasuite-browse--tiles .terrasuite-browse__tile:not(:has(.terrasuite-browse__media)) {
+	min-height: 0;
+	border: 1px solid var(--ts-line);
+}
+
+.terrasuite-browse--tiles .terrasuite-browse__tile:not(:has(.terrasuite-browse__media))::after {
+	display: none;
+}
+
+.terrasuite-browse--tiles .terrasuite-browse__tile:not(:has(.terrasuite-browse__media)) .terrasuite-browse__label {
+	position: static;
+	color: var(--wp--preset--color--ink);
+	padding: 1rem;
+}
+
+/* The compact variant: a row of chips rather than pictures. */
+.terrasuite-browse--chips .terrasuite-browse__grid {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 0.5rem;
+	/* Each chip is as tall as its own words. Left to stretch, one long
+	   property type makes every chip that tall. */
+	align-items: center;
+}
+
+.terrasuite-browse--chips .terrasuite-browse__tile {
+	min-height: 0;
+	border: 1px solid var(--ts-line);
+	border-radius: 999px;
+	padding: 0.4rem 0.95rem;
+	background: var(--wp--preset--color--base);
+}
+
+.terrasuite-browse--chips .terrasuite-browse__tile::after { display: none; }
+
+.terrasuite-browse--chips .terrasuite-browse__label {
+	position: static;
+	color: var(--wp--preset--color--ink);
+	padding: 0;
+	display: flex;
+	gap: 0.45rem;
+	align-items: baseline;
+}
+
+.terrasuite-browse--chips .terrasuite-browse__name  { font-size: 0.92rem; font-weight: 600; }
+.terrasuite-browse--chips .terrasuite-browse__count { font-size: 0.78rem; opacity: 0.65; }
+
+/* ============================================ contact bar extras (estate) */
+
+.ts-contact-bar__inner {
+	justify-content: space-between;
+}
+
+.ts-contact-bar__left,
+.ts-contact-bar__right {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 0.5rem 1.25rem;
+	align-items: center;
+}
+
+/* The shortlist counter follows the visitor around, which is how they find
+   their way back to what they saved. */
+.ts-shortlist-count {
+	display: inline-flex;
+	align-items: center;
+	gap: 0.35rem;
+	font-weight: 600;
+}
+
+.ts-shortlist-count__n {
+	min-width: 1.35rem;
+	height: 1.35rem;
+	padding: 0 0.35rem;
+	border-radius: 999px;
+	background: var(--wp--preset--color--accent);
+	color: var(--wp--preset--color--base);
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	font-size: 0.75rem;
+}

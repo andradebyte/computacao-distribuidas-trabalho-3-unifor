@@ -1,0 +1,29 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/theme.json",
+	"version": 3,
+	"title": "Ink",
+	"description": "Near black on white, no ornament, one red. The photographs carry the whole page.",
+	"settings": {
+		"color": {
+			"palette": [
+				{ "slug": "base", "color": "#ffffff", "name": "White" },
+				{ "slug": "surface", "color": "#f5f5f5", "name": "Surface" },
+				{ "slug": "surface-2", "color": "#e8e8e8", "name": "Deep surface" },
+				{ "slug": "ink", "color": "#000000", "name": "Ink" },
+				{ "slug": "ink-soft", "color": "#141414", "name": "Soft ink" },
+				{ "slug": "muted", "color": "#666666", "name": "Muted" },
+				{ "slug": "line", "color": "#dcdcdc", "name": "Line" },
+				{ "slug": "accent", "color": "#b3121a", "name": "Accent" },
+				{ "slug": "accent-deep", "color": "#8a0d14", "name": "Deep accent" },
+				{ "slug": "highlight", "color": "#000000", "name": "Highlight" }
+			]
+		},
+		"custom": {
+			"radius": "0px",
+			"radiusSmall": "0px",
+			"headingFamily": "var(--wp--preset--font-family--sans)",
+			"headingWeight": "760",
+			"headingTracking": "-0.04em"
+		}
+	}
+}

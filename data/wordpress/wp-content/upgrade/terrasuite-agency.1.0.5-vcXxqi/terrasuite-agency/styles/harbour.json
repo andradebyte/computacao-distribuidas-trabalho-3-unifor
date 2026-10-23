@@ -1,0 +1,29 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/theme.json",
+	"version": 3,
+	"title": "Harbour",
+	"description": "Slate and sea green, cool and quiet, with a lot of air between things.",
+	"settings": {
+		"color": {
+			"palette": [
+				{ "slug": "base", "color": "#ffffff", "name": "White" },
+				{ "slug": "surface", "color": "#eff3f4", "name": "Surface" },
+				{ "slug": "surface-2", "color": "#dde5e7", "name": "Deep surface" },
+				{ "slug": "ink", "color": "#1b2a30", "name": "Ink" },
+				{ "slug": "ink-soft", "color": "#273a42", "name": "Soft ink" },
+				{ "slug": "muted", "color": "#617279", "name": "Muted" },
+				{ "slug": "line", "color": "#d5dee1", "name": "Line" },
+				{ "slug": "accent", "color": "#2c7a72", "name": "Accent" },
+				{ "slug": "accent-deep", "color": "#1f5b55", "name": "Deep accent" },
+				{ "slug": "highlight", "color": "#c9743c", "name": "Highlight" }
+			]
+		},
+		"custom": {
+			"radius": "10px",
+			"radiusSmall": "6px",
+			"headingFamily": "var(--wp--preset--font-family--sans)",
+			"headingWeight": "600",
+			"headingTracking": "-0.02em"
+		}
+	}
+}

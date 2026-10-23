@@ -1,0 +1,29 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/theme.json",
+	"version": 3,
+	"title": "Terracotta",
+	"description": "Clay, cream and a deep teal. Made for Mediterranean stock and warm photography.",
+	"settings": {
+		"color": {
+			"palette": [
+				{ "slug": "base", "color": "#fffaf4", "name": "Cream" },
+				{ "slug": "surface", "color": "#faeee2", "name": "Surface" },
+				{ "slug": "surface-2", "color": "#f0dcc9", "name": "Deep surface" },
+				{ "slug": "ink", "color": "#33211a", "name": "Ink" },
+				{ "slug": "ink-soft", "color": "#4a3025", "name": "Soft ink" },
+				{ "slug": "muted", "color": "#856a5b", "name": "Muted" },
+				{ "slug": "line", "color": "#ecd8c5", "name": "Line" },
+				{ "slug": "accent", "color": "#b1512c", "name": "Accent" },
+				{ "slug": "accent-deep", "color": "#8b3d20", "name": "Deep accent" },
+				{ "slug": "highlight", "color": "#1f6f6b", "name": "Highlight" }
+			]
+		},
+		"custom": {
+			"radius": "16px",
+			"radiusSmall": "9px",
+			"headingFamily": "var(--wp--preset--font-family--sans)",
+			"headingWeight": "620",
+			"headingTracking": "-0.015em"
+		}
+	}
+}
