@@ -1,0 +1,29 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/theme.json",
+	"version": 3,
+	"title": "Sandstone",
+	"description": "Warm stone, soft corners and a muted olive accent. Reads as established rather than new.",
+	"settings": {
+		"color": {
+			"palette": [
+				{ "slug": "base", "color": "#fdfbf7", "name": "Paper" },
+				{ "slug": "surface", "color": "#f3ece1", "name": "Surface" },
+				{ "slug": "surface-2", "color": "#e6dbc9", "name": "Deep surface" },
+				{ "slug": "ink", "color": "#2b2318", "name": "Ink" },
+				{ "slug": "ink-soft", "color": "#3d3324", "name": "Soft ink" },
+				{ "slug": "muted", "color": "#7a6c58", "name": "Muted" },
+				{ "slug": "line", "color": "#e0d4bf", "name": "Line" },
+				{ "slug": "accent", "color": "#6b6a35", "name": "Accent" },
+				{ "slug": "accent-deep", "color": "#4f4e26", "name": "Deep accent" },
+				{ "slug": "highlight", "color": "#b07d3a", "name": "Highlight" }
+			]
+		},
+		"custom": {
+			"radius": "18px",
+			"radiusSmall": "10px",
+			"headingFamily": "var(--wp--preset--font-family--sans)",
+			"headingWeight": "620",
+			"headingTracking": "-0.015em"
+		}
+	}
+}

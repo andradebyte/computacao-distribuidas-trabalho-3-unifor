@@ -1,0 +1,29 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/theme.json",
+	"version": 3,
+	"title": "Metropolitan",
+	"description": "Monochrome and tight, for a city agency. Square corners, one sharp accent, headings set close.",
+	"settings": {
+		"color": {
+			"palette": [
+				{ "slug": "base", "color": "#ffffff", "name": "White" },
+				{ "slug": "surface", "color": "#f4f4f5", "name": "Surface" },
+				{ "slug": "surface-2", "color": "#e7e7e9", "name": "Deep surface" },
+				{ "slug": "ink", "color": "#0c0d0f", "name": "Ink" },
+				{ "slug": "ink-soft", "color": "#1a1c20", "name": "Soft ink" },
+				{ "slug": "muted", "color": "#6b6f76", "name": "Muted" },
+				{ "slug": "line", "color": "#dedee1", "name": "Line" },
+				{ "slug": "accent", "color": "#1d4ed8", "name": "Accent" },
+				{ "slug": "accent-deep", "color": "#1739a8", "name": "Deep accent" },
+				{ "slug": "highlight", "color": "#dc2626", "name": "Highlight" }
+			]
+		},
+		"custom": {
+			"radius": "2px",
+			"radiusSmall": "2px",
+			"headingFamily": "var(--wp--preset--font-family--sans)",
+			"headingWeight": "700",
+			"headingTracking": "-0.03em"
+		}
+	}
+}

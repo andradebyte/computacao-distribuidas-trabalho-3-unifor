@@ -1,0 +1,37 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/theme.json",
+	"version": 3,
+	"title": "Nocturne",
+	"description": "Dark, for agencies selling at the top of the market. Photographs carry the page and the interface gets out of the way.",
+	"settings": {
+		"color": {
+			"palette": [
+				{ "slug": "base", "color": "#101317", "name": "Night" },
+				{ "slug": "surface", "color": "#171b21", "name": "Surface" },
+				{ "slug": "surface-2", "color": "#1f242c", "name": "Deep surface" },
+				{ "slug": "ink", "color": "#eef1f4", "name": "Ink" },
+				{ "slug": "ink-soft", "color": "#dfe4ea", "name": "Soft ink" },
+				{ "slug": "muted", "color": "#9aa5b1", "name": "Muted" },
+				{ "slug": "line", "color": "#2b323b", "name": "Line" },
+				{ "slug": "accent", "color": "#c9a227", "name": "Accent" },
+				{ "slug": "accent-deep", "color": "#a8871d", "name": "Deep accent" },
+				{ "slug": "highlight", "color": "#7cc6d6", "name": "Highlight" }
+			]
+		},
+		"custom": {
+			"radius": "12px",
+			"radiusSmall": "8px",
+			"headingFamily": "var(--wp--preset--font-family--sans)",
+			"headingWeight": "600",
+			"headingTracking": "-0.02em"
+		}
+	},
+	"styles": {
+		"elements": {
+			"button": {
+				"color": { "background": "var(--wp--preset--color--accent)", "text": "#101317" },
+				":hover": { "color": { "background": "var(--wp--preset--color--accent-deep)", "text": "#101317" } }
+			}
+		}
+	}
+}

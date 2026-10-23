@@ -1,0 +1,439 @@
+/*
+ * TerraSuite Agency.
+ *
+ * Everything here is expressed through the tokens in theme.json, so a style
+ * variation changes the whole site by redefining ten values and nothing in
+ * this file needs touching.
+ *
+ * The layout follows what estate agency sites that convert actually do: one
+ * hero committed to a single decision with the search as the dominant element,
+ * navigation split by what a visitor came to do, and a valuation call to
+ * action that is never more than a scroll away.
+ */
+
+:root {
+	--ts-radius: var(--wp--custom--radius, 14px);
+	--ts-radius-sm: var(--wp--custom--radius-small, 8px);
+	--ts-line: var(--wp--preset--color--line);
+	--ts-shadow: 0 1px 2px rgba(10, 20, 30, 0.05), 0 10px 30px -18px rgba(10, 20, 30, 0.35);
+	--ts-shadow-lift: 0 2px 6px rgba(10, 20, 30, 0.07), 0 26px 50px -28px rgba(10, 20, 30, 0.45);
+}
+
+body {
+	-webkit-font-smoothing: antialiased;
+}
+
+h1, h2, h3, h4 {
+	text-wrap: balance;
+}
+
+/* --------------------------------------------------------------- header */
+
+.ts-header {
+	position: sticky;
+	top: 0;
+	z-index: 30;
+	background: color-mix(in srgb, var(--wp--preset--color--base) 88%, transparent);
+	backdrop-filter: saturate(1.4) blur(10px);
+	border-bottom: 1px solid var(--ts-line);
+}
+
+/*
+ * The frosted header has to stop being frosted while the menu is open.
+ *
+ * backdrop-filter makes an element a containing block for its fixed-position
+ * descendants. WordPress's overlay menu is position:fixed with inset:0 and
+ * expects the viewport - so instead of covering the screen it was trapped
+ * inside the header and opened as a white box about eighty pixels tall,
+ * covering the site title and the navigation button and showing almost nothing.
+ * On a phone that reads as "the hamburger blanks the top of the page", which is
+ * exactly what it was doing.
+ *
+ * WordPress puts has-modal-open on the html element for as long as the overlay
+ * is open, so the filter can be dropped for precisely that time. The rest of
+ * the time the header still frosts.
+ */
+html.has-modal-open .ts-header {
+	backdrop-filter: none;
+	-webkit-backdrop-filter: none;
+}
+
+.ts-header .wp-block-navigation a:hover {
+	color: var(--wp--preset--color--accent);
+}
+
+/* ----------------------------------------------------------------- hero */
+
+/*
+ * One decision, not four. The photograph sets the tone, the search is the
+ * thing the eye lands on, and the only other element is a single line of
+ * reassurance. Carousels and competing buttons were the first thing every
+ * source said to remove.
+ */
+.ts-hero {
+	/* Break out of the constrained content column: the hero is the page. */
+	position: relative;
+	left: 50%;
+	transform: translateX(-50%);
+	width: 100vw;
+	max-width: 100vw;
+	position: relative;
+	isolation: isolate;
+	min-height: clamp(30rem, 62vh, 44rem);
+	display: flex;
+	align-items: center;
+	overflow: hidden;
+}
+
+.ts-hero__media {
+	position: absolute;
+	inset: 0;
+	z-index: -2;
+}
+
+.ts-hero__media img {
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+	display: block;
+}
+
+.ts-hero::after {
+	content: "";
+	position: absolute;
+	inset: 0;
+	z-index: -1;
+	background: linear-gradient(
+		180deg,
+		rgba(8, 14, 20, 0.52) 0%,
+		rgba(8, 14, 20, 0.34) 45%,
+		rgba(8, 14, 20, 0.62) 100%
+	);
+}
+
+.ts-hero__inner {
+	width: 100%;
+	max-width: 1360px;
+	margin-inline: auto;
+	padding: clamp(3rem, 6vw, 5rem) var(--wp--preset--spacing--40);
+	color: #fff;
+}
+
+.ts-hero h1 {
+	color: #fff;
+	/* Wide enough to use the hero. 18ch left a headline in the left third. */
+	max-width: none;
+	margin: 0 0 0.6rem;
+	text-shadow: 0 2px 20px rgba(0, 0, 0, 0.35);
+}
+
+.ts-hero__lead {
+	color: rgba(255, 255, 255, 0.9);
+	font-size: clamp(1.05rem, 0.95rem + 0.5vw, 1.3rem);
+	/*
+	 * 46ch put this sentence in the left THIRD of a 1360px hero and left the
+	 * rest of the photograph empty. A lead under a full-width headline is not
+	 * a column of running prose and does not want a novel's measure.
+	 */
+	max-width: none;
+	margin: 0 0 2rem;
+	text-shadow: 0 1px 12px rgba(0, 0, 0, 0.4);
+}
+
+/* The search panel is the dominant element on the page, on purpose. */
+.ts-hero .terrasuite-search {
+	background: var(--wp--preset--color--base);
+	border-radius: var(--ts-radius);
+	box-shadow: var(--ts-shadow-lift);
+	padding: clamp(1rem, 2vw, 1.5rem);
+	/* The dominant element should look it: the panel spans the hero. */
+	max-width: 100%;
+}
+
+.ts-hero__trust {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 0.5rem 1.75rem;
+	margin-top: 1.5rem;
+	font-size: 0.9rem;
+	color: rgba(255, 255, 255, 0.86);
+}
+
+.ts-hero__trust span {
+	display: inline-flex;
+	align-items: center;
+	gap: 0.45rem;
+}
+
+.ts-hero__trust span::before {
+	content: "";
+	width: 0.4rem;
+	height: 0.4rem;
+	border-radius: 50%;
+	background: var(--wp--preset--color--highlight);
+}
+
+/* --------------------------------------------------------------- blocks */
+
+.ts-eyebrow {
+	font-size: 0.78rem;
+	font-weight: 660;
+	letter-spacing: 0.1em;
+	text-transform: uppercase;
+	color: var(--wp--preset--color--accent);
+	margin-bottom: 0.6rem;
+}
+
+.ts-panel {
+	background: var(--wp--preset--color--surface);
+	border: 1px solid var(--ts-line);
+	border-radius: var(--ts-radius);
+	padding: clamp(1.5rem, 1rem + 1.6vw, 2.5rem);
+}
+
+.ts-card {
+	background: var(--wp--preset--color--base);
+	border: 1px solid var(--ts-line);
+	border-radius: var(--ts-radius);
+	padding: clamp(1.3rem, 1rem + 1vw, 1.9rem);
+	box-shadow: var(--ts-shadow);
+	height: 100%;
+}
+
+.ts-card h3 { margin-top: 0; }
+.ts-card p:last-child { margin-bottom: 0; }
+
+/* --------------------------------------------------------- listing cards */
+
+/*
+ * The plugin draws its own cards. This restyles them to sit in the theme
+ * rather than beside it, and the tokens mean a style variation restyles them
+ * too without a line of extra CSS.
+ */
+.terrasuite-card {
+	border-radius: var(--ts-radius);
+	border-color: var(--ts-line);
+	background: var(--wp--preset--color--base);
+	box-shadow: var(--ts-shadow);
+	overflow: hidden;
+	transition: box-shadow 0.18s ease, transform 0.18s ease;
+}
+
+@media (hover: hover) {
+	.terrasuite-card:hover {
+		box-shadow: var(--ts-shadow-lift);
+		transform: translateY(-2px);
+	}
+}
+
+.terrasuite-card__media img {
+	transition: transform 0.35s ease;
+}
+
+@media (hover: hover) {
+	.terrasuite-card:hover .terrasuite-card__media img {
+		transform: scale(1.03);
+	}
+}
+
+/* The price is what the eye goes to first on a listing. Let it. */
+.terrasuite-card .terrasuite-card__price,
+.terrasuite-card .terrasuite-price {
+	font-weight: 680;
+	letter-spacing: -0.02em;
+	color: var(--wp--preset--color--ink);
+}
+
+/* The plugin's own accent follows the theme rather than fighting it. */
+.terrasuite,
+.terrasuite-results,
+.terrasuite-search,
+.terrasuite-property,
+.terrasuite-account,
+.terrasuite-form,
+.terrasuite-kb,
+.terrasuite-areas,
+.terrasuite-mapsearch,
+.terrasuite-assistant,
+.terrasuite-shortlist,
+.terrasuite-bookings {
+	--terrasuite-accent: var(--wp--preset--color--accent);
+	--terrasuite-accent-contrast: var(--wp--preset--color--base);
+	--terrasuite-ink: var(--wp--preset--color--ink);
+	--terrasuite-muted: var(--wp--preset--color--muted);
+	--terrasuite-line: var(--ts-line);
+	--terrasuite-surface: var(--wp--preset--color--base);
+	--terrasuite-surface-2: var(--wp--preset--color--surface);
+	--terrasuite-radius: var(--ts-radius-sm);
+	--terrasuite-shadow: var(--ts-shadow);
+}
+
+/* ------------------------------------------------------------ the blog */
+
+.ts-chips ul,
+ul.ts-chips {
+	list-style: none;
+	padding: 0;
+	margin: 0;
+	display: flex;
+	flex-wrap: wrap;
+	gap: 0.5rem;
+}
+
+.ts-chips li {
+	margin: 0;
+}
+
+.ts-chips a {
+	display: inline-block;
+	padding: 0.35rem 0.85rem;
+	border: 1px solid var(--ts-line);
+	border-radius: 999px;
+	font-size: 0.88rem;
+	text-decoration: none;
+	color: var(--wp--preset--color--ink);
+	background: var(--wp--preset--color--base);
+}
+
+.ts-chips a:hover {
+	border-color: var(--wp--preset--color--accent);
+	color: var(--wp--preset--color--accent);
+}
+
+.ts-cards .wp-block-post-featured-image img {
+	border-radius: var(--ts-radius);
+}
+
+/* --------------------------------------------------------------- footer */
+
+.ts-footer,
+.ts-footer h4,
+.ts-footer .wp-block-site-title a {
+	color: var(--wp--preset--color--base);
+}
+
+.ts-footer a {
+	color: color-mix(in srgb, var(--wp--preset--color--base) 76%, transparent);
+	text-decoration: none;
+}
+
+.ts-footer a:hover {
+	color: var(--wp--preset--color--base);
+	text-decoration: underline;
+}
+
+.ts-footer p a {
+	text-decoration: underline;
+	text-underline-offset: 0.15em;
+}
+
+/* -------------------------------------------------------------- mobile */
+
+/*
+ * A sticky bar with the two things somebody on a phone came to do. Every
+ * source said the same thing: large tap targets, and the search or the call
+ * always within reach.
+ */
+.ts-mobile-bar {
+	display: none;
+}
+
+@media (max-width: 781px) {
+	.ts-mobile-bar {
+		position: fixed;
+		inset: auto 0 0 0;
+		z-index: 40;
+		display: grid;
+		grid-template-columns: 1fr 1fr;
+		gap: 1px;
+		background: var(--ts-line);
+		border-top: 1px solid var(--ts-line);
+	}
+
+	.ts-mobile-bar a {
+		background: var(--wp--preset--color--base);
+		color: var(--wp--preset--color--ink);
+		text-decoration: none;
+		text-align: center;
+		padding: 0.95rem 0.5rem;
+		font-weight: 600;
+		font-size: 0.95rem;
+		min-height: 3rem;
+	}
+
+	.ts-mobile-bar a.is-primary {
+		background: var(--wp--preset--color--accent);
+		color: var(--wp--preset--color--base);
+	}
+
+	body {
+		padding-bottom: 3.4rem;
+	}
+
+	.ts-hero {
+		min-height: 0;
+	}
+
+	.ts-hero__inner {
+		padding-top: 2.5rem;
+		padding-bottom: 2.5rem;
+	}
+}
+
+@media (prefers-reduced-motion: reduce) {
+	* {
+		animation: none !important;
+		transition: none !important;
+	}
+}
+
+/* Service card images sit flush to the top of their card. */
+.ts-service-image img {
+	border-radius: var(--ts-radius-sm);
+	width: 100%;
+	height: 11rem;
+	object-fit: cover;
+	display: block;
+}
+
+/* The plugin's search form inside the hero panel needs no card of its own. */
+.ts-hero .terrasuite-search form {
+	margin: 0;
+}
+
+/*
+ * "How we can help": three columns of unequal copy.
+ *
+ * The three descriptions are not the same length, so the link at the foot of
+ * each column landed at a different height and the row read as three
+ * half-finished things rather than one row of three. The column becomes a flex
+ * column and the last paragraph - the link - is pushed to the bottom, so the
+ * three links sit on one line whatever the copy above them does.
+ *
+ * The pictures are cropped to one shape for the same reason: three
+ * photographs of different proportions put the headings at three different
+ * heights before a word has been read.
+ */
+.ts-help > .wp-block-column {
+	display: flex;
+	flex-direction: column;
+}
+
+.ts-help > .wp-block-column > p:last-child {
+	margin-top: auto;
+	padding-top: 0.75rem;
+}
+
+.ts-help__image img {
+	width: 100%;
+	height: 15rem;
+	object-fit: cover;
+	display: block;
+}
+
+@media (max-width: 781px) {
+	/* Stacked on a telephone, so there is no row to line anything up with. */
+	.ts-help > .wp-block-column > p:last-child {
+		margin-top: 0;
+	}
+}

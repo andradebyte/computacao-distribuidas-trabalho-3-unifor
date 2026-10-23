@@ -1,0 +1,899 @@
+# Copyright (C) 2026 Havenswift Hosting
+# This file is distributed under the GPL-2.0-or-later.
+msgid ""
+msgstr ""
+"Project-Id-Version: TerraSuite Agency 1.0.5\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/theme/terrasuite-agency\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"POT-Creation-Date: 2026-09-29T10:09:07+00:00\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"X-Generator: WP-CLI 2.12.0\n"
+"X-Domain: terrasuite-agency\n"
+
+#. Theme Name of the theme
+#: style.css
+msgid "TerraSuite Agency"
+msgstr ""
+
+#. Description of the theme
+#: style.css
+msgid "A block theme for estate and letting agencies. One hero committed to a single decision with the search as its dominant element, navigation split by what a visitor came to do, and a valuation call to action that is never far away. Nine layouts and nine palettes make eighty-one combinations, all of them yours to pick, and twenty-four are pairings we recommend; choosing one changes the arrangement of the page as well as its colours. They are picked from a drawn preview in Appearance, Designs, and switching never touches a template or your content. Nothing at all is loaded from a third party: no fonts, scripts, styles or images are fetched from anywhere else, so nothing about a visitor leaves your server. The theme is complete on its own, with templates for the front page, blog, archives, search, single posts, pages and 404. It is also the reference theme for the free TerraSuite plugin, which adds property listings, a filterable search, a self-hosted map, enquiries and a viewings calendar: install that as well and the theme adds a matching property layout, a featured-property showcase and browse-by-area tiles. Neither one needs the other."
+msgstr ""
+
+#. Author of the theme
+#: style.css
+msgid "Havenswift Hosting"
+msgstr ""
+
+#. Author URI of the theme
+#: style.css
+msgid "https://www.havenswift-hosting.co.uk/"
+msgstr ""
+
+#: functions.php:97
+msgid "Card"
+msgstr ""
+
+#: functions.php:98
+msgid "Panel"
+msgstr ""
+
+#: functions.php:99
+msgid "Eyebrow"
+msgstr ""
+
+#: functions.php:181
+msgid "Search properties"
+msgstr ""
+
+#: functions.php:189
+#: inc/layout-render.php:117
+#: patterns/header.php:99
+msgid "Book a valuation"
+msgstr ""
+
+#: functions.php:199
+msgid "Quick actions"
+msgstr ""
+
+#: inc/design-admin.php:80
+#: inc/design-admin.php:81
+#: inc/design-admin.php:88
+#: inc/design-admin.php:89
+#: inc/design-admin.php:386
+msgid "Designs"
+msgstr ""
+
+#: inc/design-admin.php:316
+msgid "You cannot change the design."
+msgstr ""
+
+#: inc/design-admin.php:328
+msgid "The footer now carries the TerraSuite credit."
+msgstr ""
+
+#: inc/design-admin.php:329
+msgid "The footer now carries your own name only."
+msgstr ""
+
+#. translators: %s: design name.
+#: inc/design-admin.php:338
+#, php-format
+msgid "%s is now live on the site."
+msgstr ""
+
+#: inc/design-admin.php:344
+msgid "That design is not one this theme offers, so nothing was changed."
+msgstr ""
+
+#. translators: %s: arrangement name.
+#: inc/design-admin.php:355
+#, php-format
+msgid "The site is now arranged as %s. Your colours are unchanged."
+msgstr ""
+
+#: inc/design-admin.php:357
+msgid "That arrangement is not one this theme offers, so nothing was changed."
+msgstr ""
+
+#. translators: %s: colour scheme name.
+#: inc/design-admin.php:368
+#, php-format
+msgid "The site is now in %s. The arrangement is unchanged."
+msgstr ""
+
+#: inc/design-admin.php:370
+msgid "That colour scheme is not one this theme offers, so nothing was changed."
+msgstr ""
+
+#: inc/design-admin.php:387
+msgid "A design is an arrangement of the site paired with a set of colours: where the search sits, how the listings are shaped, and what the whole thing looks like. Take one of the pairings below, or choose the arrangement and the colours separately further down. Your pages, properties and words are untouched either way, so you can try one and change your mind."
+msgstr ""
+
+#: inc/design-admin.php:388
+msgid "Designs we have put together"
+msgstr ""
+
+#: inc/design-admin.php:416
+#: inc/design-admin.php:478
+#: inc/design-admin.php:524
+msgid "in use"
+msgstr ""
+
+#: inc/design-admin.php:435
+msgid "Use this design"
+msgstr ""
+
+#: inc/design-admin.php:458
+msgid "Or choose the two separately"
+msgstr ""
+
+#: inc/design-admin.php:459
+msgid "The arrangement and the colours are independent. Change one and the other stays as it is; the ones we think go well together are marked."
+msgstr ""
+
+#: inc/design-admin.php:463
+msgid "The arrangement"
+msgstr ""
+
+#: inc/design-admin.php:484
+msgid "Goes well with your colours"
+msgstr ""
+
+#: inc/design-admin.php:493
+msgid "Use this arrangement"
+msgstr ""
+
+#: inc/design-admin.php:504
+msgid "The colours"
+msgstr ""
+
+#: inc/design-admin.php:530
+msgid "Goes well with your arrangement"
+msgstr ""
+
+#: inc/design-admin.php:545
+msgid "Use these colours"
+msgstr ""
+
+#: inc/design-admin.php:566
+msgid "Show \"Powered by TerraSuite\" in the footer"
+msgstr ""
+
+#: inc/design-admin.php:567
+msgid "Save"
+msgstr ""
+
+#: inc/designs.php:60
+msgid "Classic"
+msgstr ""
+
+#: inc/designs.php:61
+msgid "A photograph across the top with the search over it, and properties in an even grid. The arrangement most agencies use, done properly."
+msgstr ""
+
+#: inc/designs.php:67
+msgid "Split"
+msgstr ""
+
+#: inc/designs.php:68
+msgid "The photograph takes one half and the search sits on a solid panel in the other. Reads well on a wide screen and stacks cleanly on a phone."
+msgstr ""
+
+#: inc/designs.php:74
+msgid "Showcase"
+msgstr ""
+
+#: inc/designs.php:75
+msgid "Your best properties move behind the search, and the listings appear as pictures with the detail over them. For an agency whose stock is the selling point."
+msgstr ""
+
+#: inc/designs.php:81
+msgid "Editorial"
+msgstr ""
+
+#: inc/designs.php:82
+msgid "No hero photograph. A confident line of type, the search beneath it, and properties in a list with room to say something about each. Fast, and unlike everyone else."
+msgstr ""
+
+#: inc/designs.php:88
+msgid "Gallery"
+msgstr ""
+
+#: inc/designs.php:89
+msgid "A short hero and then straight into the properties, staggered so the pictures lead. Suits an agency with a lot of stock and good photography."
+msgstr ""
+
+#: inc/designs.php:95
+msgid "Boutique"
+msgstr ""
+
+#: inc/designs.php:96
+msgid "Split the other way, with more air around everything and fewer properties on the page. For a small number of expensive houses."
+msgstr ""
+
+#: inc/designs.php:120
+msgid "Connect"
+msgstr ""
+
+#: inc/designs.php:121
+msgid "A search panel running the full width of the photograph with the filters side by side, and cards that stack their badges. Built for a busy sales portfolio where Reserved, Reduced and Exclusive all matter."
+msgstr ""
+
+#: inc/designs.php:127
+msgid "Discover"
+msgstr ""
+
+#: inc/designs.php:128
+msgid "Opens with the places you cover and the kinds of property you sell, as pictures somebody can press. For an agency whose buyers are choosing a town before they choose a house."
+msgstr ""
+
+#: inc/designs.php:135
+msgid "Estate"
+msgstr ""
+
+#: inc/designs.php:136
+msgid "Dark and gold, with the telephone, WhatsApp and shortlist along the top and the regions you cover below the fold. The luxury end of this market, done without shouting."
+msgstr ""
+
+#: inc/designs.php:152
+msgid "Blue, open and friendly. The safe choice, and a good one."
+msgstr ""
+
+#: inc/designs.php:153
+msgid "Square corners, black and a single blue. Corporate without being cold."
+msgstr ""
+
+#: inc/designs.php:154
+msgid "Deep green and warm neutrals. Reads as rural without resorting to tweed."
+msgstr ""
+
+#: inc/designs.php:155
+msgid "Warm stone and soft edges beside a strong photograph."
+msgstr ""
+
+#: inc/designs.php:156
+msgid "A city agency. Hard edges, plenty of white, one accent."
+msgstr ""
+
+#: inc/designs.php:157
+msgid "Dark throughout with gold detail. Photographs look expensive on it."
+msgstr ""
+
+#: inc/designs.php:158
+msgid "Properties moving behind the search, in blue and white."
+msgstr ""
+
+#: inc/designs.php:159
+msgid "Warm terracotta and cream. Suits Mediterranean stock particularly."
+msgstr ""
+
+#: inc/designs.php:160
+msgid "Near black, high contrast, no ornament. The pictures do everything."
+msgstr ""
+
+#: inc/designs.php:161
+msgid "No hero image at all. Type, a search box and a list. Loads instantly."
+msgstr ""
+
+#: inc/designs.php:162
+msgid "Serif headings, forest and claret. For an old firm that says so."
+msgstr ""
+
+#: inc/designs.php:163
+msgid "The fastest thing here. Monochrome, one accent, nothing decorative."
+msgstr ""
+
+#: inc/designs.php:164
+msgid "Staggered picture grid, light and airy."
+msgstr ""
+
+#: inc/designs.php:165
+msgid "The same grid in warm clay and cream."
+msgstr ""
+
+#: inc/designs.php:166
+msgid "Dark ground, staggered pictures, gold type."
+msgstr ""
+
+#: inc/designs.php:167
+msgid "Few properties, generous space, serif headings."
+msgstr ""
+
+#: inc/designs.php:168
+msgid "Quiet, warm and unhurried. Country house agency."
+msgstr ""
+
+#: inc/designs.php:169
+msgid "Slate and sea green with a lot of air."
+msgstr ""
+
+#: inc/designs.php:173
+msgid "A full width search across the photograph, and badges on the cards. The Spanish coastal agency shape."
+msgstr ""
+
+#: inc/designs.php:174
+msgid "The same wide search in warm clay and cream."
+msgstr ""
+
+#: inc/designs.php:175
+msgid "Pick a town, then a kind of house. For buyers choosing a place first."
+msgstr ""
+
+#: inc/designs.php:176
+msgid "The same tiles, warmer and softer edged."
+msgstr ""
+
+#: inc/designs.php:177
+msgid "Dark and gold with a contact bar. The luxury end."
+msgstr ""
+
+#: inc/designs.php:178
+msgid "The same arrangement in black and white, for an agency that would rather look serious than expensive."
+msgstr ""
+
+#: inc/layout-render.php:104
+msgid "WhatsApp"
+msgstr ""
+
+#: inc/layout-render.php:125
+#: patterns/footer.php:41
+#: patterns/header.php:40
+msgid "My account"
+msgstr ""
+
+#: inc/layout-render.php:154
+msgid "Shortlist"
+msgstr ""
+
+#: inc/layout-render.php:244
+msgid "Featured properties"
+msgstr ""
+
+#: inc/layout-render.php:261
+msgid "Previous property"
+msgstr ""
+
+#: inc/layout-render.php:266
+msgid "Next property"
+msgstr ""
+
+#. translators: %d: slide number.
+#: inc/layout-render.php:276
+#, php-format
+msgid "Property %d"
+msgstr ""
+
+#: patterns/404.php
+msgctxt "Pattern title"
+msgid "404 heading"
+msgstr ""
+
+#: patterns/404.php
+msgctxt "Pattern description"
+msgid "The heading on the page shown when an address does not exist."
+msgstr ""
+
+#: patterns/404.php:13
+msgid "That page has gone"
+msgstr ""
+
+#: patterns/comments.php
+msgctxt "Pattern title"
+msgid "Comments"
+msgstr ""
+
+#: patterns/comments.php
+msgctxt "Pattern description"
+msgid "The comment thread and the reply form, for posts and pages that have comments open."
+msgstr ""
+
+#: patterns/footer.php
+msgctxt "Pattern title"
+msgid "Footer"
+msgstr ""
+
+#: patterns/footer.php
+msgctxt "Pattern description"
+msgid "Columns of links, grouped by what a visitor is trying to do."
+msgstr ""
+
+#: patterns/footer.php:22
+#: patterns/header.php:35
+msgid "Buying"
+msgstr ""
+
+#: patterns/footer.php:24
+msgid "Property search"
+msgstr ""
+
+#: patterns/footer.php:25
+msgid "Search on a map"
+msgstr ""
+
+#: patterns/footer.php:26
+msgid "Register your requirements"
+msgstr ""
+
+#: patterns/footer.php:27
+msgid "Book a viewing"
+msgstr ""
+
+#: patterns/footer.php:31
+msgid "Selling and letting"
+msgstr ""
+
+#: patterns/footer.php:33
+msgid "Free valuation"
+msgstr ""
+
+#: patterns/footer.php:34
+#: patterns/header.php:39
+msgid "Advice"
+msgstr ""
+
+#: patterns/footer.php:35
+#: patterns/header.php:38
+msgid "Area guides"
+msgstr ""
+
+#: patterns/footer.php:39
+msgid "Your account"
+msgstr ""
+
+#: patterns/footer.php:42
+msgid "My shortlist"
+msgstr ""
+
+#: patterns/footer.php:43
+msgid "My viewings"
+msgstr ""
+
+#: patterns/footer.php:44
+msgid "Ask a question"
+msgstr ""
+
+#: patterns/footer.php:79
+msgid "Buying, selling and letting. Talk to us about what you are trying to do and we will tell you honestly whether we can help."
+msgstr ""
+
+#. translators: 1: current year, 2: site name.
+#: patterns/footer.php:116
+#, php-format
+msgid "&copy; %1$s %2$s. All rights reserved."
+msgstr ""
+
+#: patterns/footer.php:157
+msgid "Powered by TerraSuite."
+msgstr ""
+
+#: patterns/front-page.php
+msgctxt "Pattern title"
+msgid "Front page"
+msgstr ""
+
+#: patterns/front-page.php
+msgctxt "Pattern description"
+msgid "The body of the front page, which is a page's own content or the list of posts depending on what the site is set to show."
+msgstr ""
+
+#: patterns/header.php
+msgctxt "Pattern title"
+msgid "Header"
+msgstr ""
+
+#: patterns/header.php
+msgctxt "Pattern description"
+msgid "Site title, the navigation split by what a visitor came to do, and the valuation button."
+msgstr ""
+
+#: patterns/header.php:36
+msgid "Renting"
+msgstr ""
+
+#: patterns/header.php:37
+msgid "Selling"
+msgstr ""
+
+#: patterns/no-results.php
+msgctxt "Pattern title"
+msgid "Nothing found"
+msgstr ""
+
+#: patterns/no-results.php
+msgctxt "Pattern description"
+msgid "What a visitor sees when a page does not exist or a search finds nothing."
+msgstr ""
+
+#: patterns/no-results.php:17
+msgid "The page you asked for is not here. It may have been moved, or it may have been something that has since been taken off the market. Try a search, or start again from the front page."
+msgstr ""
+
+#: patterns/no-results.php:20
+#: patterns/search.php:14
+msgid "Search this site"
+msgstr ""
+
+#: patterns/no-results.php:20
+#: patterns/search.php:14
+msgid "Search"
+msgstr ""
+
+#: patterns/no-results.php:25
+msgid "Back to the front page"
+msgstr ""
+
+#: patterns/post-cta.php
+msgctxt "Pattern title"
+msgid "After a post"
+msgstr ""
+
+#: patterns/post-cta.php
+msgctxt "Pattern description"
+msgid "A line at the foot of an article pointing at the search and the requirements form."
+msgstr ""
+
+#: patterns/post-cta.php:29
+msgid "see what we have available"
+msgstr ""
+
+#: patterns/post-cta.php:37
+msgid "tell us what you are after and we will let you know the moment something matches"
+msgstr ""
+
+#: patterns/post-cta.php:48
+msgid "Looking for somewhere here?"
+msgstr ""
+
+#: patterns/post-cta.php:52
+msgid ", or "
+msgstr ""
+
+#: patterns/posts.php
+msgctxt "Pattern title"
+msgid "Posts"
+msgstr ""
+
+#: patterns/posts.php
+msgctxt "Pattern description"
+msgid "The list of posts used by the blog index, the archives and the fallback template."
+msgstr ""
+
+#: patterns/posts.php:42
+#: patterns/search.php:21
+msgid "Continue reading"
+msgstr ""
+
+#: patterns/posts.php:53
+msgid "Nothing has been published here yet."
+msgstr ""
+
+#: patterns/search.php
+msgctxt "Pattern title"
+msgid "Search results"
+msgstr ""
+
+#: patterns/search.php
+msgctxt "Pattern description"
+msgid "The results of a site search, with the box carried over so a visitor can correct the wording."
+msgstr ""
+
+#: patterns/search.php:32
+msgid "Nothing on the site matched those words. Try fewer of them, or a place name on its own."
+msgstr ""
+
+#: theme.json
+#: styles/forest.json
+#: styles/harbour.json
+#: styles/ink.json
+#: styles/metropolitan.json
+msgctxt "Color name"
+msgid "White"
+msgstr ""
+
+#: theme.json
+#: styles/forest.json
+#: styles/harbour.json
+#: styles/heritage.json
+#: styles/ink.json
+#: styles/metropolitan.json
+#: styles/nocturne.json
+#: styles/sandstone.json
+#: styles/terracotta.json
+msgctxt "Color name"
+msgid "Surface"
+msgstr ""
+
+#: theme.json
+#: styles/forest.json
+#: styles/harbour.json
+#: styles/heritage.json
+#: styles/ink.json
+#: styles/metropolitan.json
+#: styles/nocturne.json
+#: styles/sandstone.json
+#: styles/terracotta.json
+msgctxt "Color name"
+msgid "Deep surface"
+msgstr ""
+
+#: theme.json
+#: styles/forest.json
+#: styles/harbour.json
+#: styles/heritage.json
+#: styles/ink.json
+#: styles/metropolitan.json
+#: styles/nocturne.json
+#: styles/sandstone.json
+#: styles/terracotta.json
+msgctxt "Color name"
+msgid "Ink"
+msgstr ""
+
+#: theme.json
+#: styles/forest.json
+#: styles/harbour.json
+#: styles/heritage.json
+#: styles/ink.json
+#: styles/metropolitan.json
+#: styles/nocturne.json
+#: styles/sandstone.json
+#: styles/terracotta.json
+msgctxt "Color name"
+msgid "Soft ink"
+msgstr ""
+
+#: theme.json
+#: styles/forest.json
+#: styles/harbour.json
+#: styles/heritage.json
+#: styles/ink.json
+#: styles/metropolitan.json
+#: styles/nocturne.json
+#: styles/sandstone.json
+#: styles/terracotta.json
+msgctxt "Color name"
+msgid "Muted"
+msgstr ""
+
+#: theme.json
+#: styles/forest.json
+#: styles/harbour.json
+#: styles/heritage.json
+#: styles/ink.json
+#: styles/metropolitan.json
+#: styles/nocturne.json
+#: styles/sandstone.json
+#: styles/terracotta.json
+msgctxt "Color name"
+msgid "Line"
+msgstr ""
+
+#: theme.json
+#: styles/forest.json
+#: styles/harbour.json
+#: styles/heritage.json
+#: styles/ink.json
+#: styles/metropolitan.json
+#: styles/nocturne.json
+#: styles/sandstone.json
+#: styles/terracotta.json
+msgctxt "Color name"
+msgid "Accent"
+msgstr ""
+
+#: theme.json
+#: styles/forest.json
+#: styles/harbour.json
+#: styles/heritage.json
+#: styles/ink.json
+#: styles/metropolitan.json
+#: styles/nocturne.json
+#: styles/sandstone.json
+#: styles/terracotta.json
+msgctxt "Color name"
+msgid "Deep accent"
+msgstr ""
+
+#: theme.json
+#: styles/forest.json
+#: styles/harbour.json
+#: styles/heritage.json
+#: styles/ink.json
+#: styles/metropolitan.json
+#: styles/nocturne.json
+#: styles/sandstone.json
+#: styles/terracotta.json
+msgctxt "Color name"
+msgid "Highlight"
+msgstr ""
+
+#: theme.json
+msgctxt "Font family name"
+msgid "Sans"
+msgstr ""
+
+#: theme.json
+msgctxt "Font family name"
+msgid "Serif"
+msgstr ""
+
+#: theme.json
+msgctxt "Font size name"
+msgid "Small"
+msgstr ""
+
+#: theme.json
+msgctxt "Font size name"
+msgid "Medium"
+msgstr ""
+
+#: theme.json
+msgctxt "Font size name"
+msgid "Large"
+msgstr ""
+
+#: theme.json
+msgctxt "Font size name"
+msgid "Extra large"
+msgstr ""
+
+#: theme.json
+msgctxt "Font size name"
+msgid "Section"
+msgstr ""
+
+#: theme.json
+msgctxt "Font size name"
+msgid "Display"
+msgstr ""
+
+#: theme.json
+msgctxt "Space size name"
+msgid "1"
+msgstr ""
+
+#: theme.json
+msgctxt "Space size name"
+msgid "2"
+msgstr ""
+
+#: theme.json
+msgctxt "Space size name"
+msgid "3"
+msgstr ""
+
+#: theme.json
+msgctxt "Space size name"
+msgid "4"
+msgstr ""
+
+#: theme.json
+msgctxt "Space size name"
+msgid "5"
+msgstr ""
+
+#: theme.json
+msgctxt "Space size name"
+msgid "6"
+msgstr ""
+
+#: theme.json
+msgctxt "Template part name"
+msgid "Header"
+msgstr ""
+
+#: theme.json
+msgctxt "Template part name"
+msgid "Footer"
+msgstr ""
+
+#: styles/coastal.json
+msgctxt "Style variation name"
+msgid "Coastal"
+msgstr ""
+
+#: styles/coastal.json
+msgctxt "Style variation description"
+msgid "The default. Warm sand and deep sea, generous photography - built for agencies selling somewhere with a coastline."
+msgstr ""
+
+#: styles/forest.json
+msgctxt "Style variation name"
+msgid "Forest"
+msgstr ""
+
+#: styles/forest.json
+msgctxt "Style variation description"
+msgid "Deep green with warm neutrals. Rural without resorting to tweed and tartan."
+msgstr ""
+
+#: styles/harbour.json
+msgctxt "Style variation name"
+msgid "Harbour"
+msgstr ""
+
+#: styles/harbour.json
+msgctxt "Style variation description"
+msgid "Slate and sea green, cool and quiet, with a lot of air between things."
+msgstr ""
+
+#: styles/heritage.json
+msgctxt "Style variation name"
+msgid "Heritage"
+msgstr ""
+
+#: styles/heritage.json
+msgctxt "Style variation description"
+msgid "A traditional high street agency. Serif headings, forest and claret, rounded but restrained."
+msgstr ""
+
+#: styles/heritage.json
+#: styles/sandstone.json
+msgctxt "Color name"
+msgid "Paper"
+msgstr ""
+
+#: styles/ink.json
+msgctxt "Style variation name"
+msgid "Ink"
+msgstr ""
+
+#: styles/ink.json
+msgctxt "Style variation description"
+msgid "Near black on white, no ornament, one red. The photographs carry the whole page."
+msgstr ""
+
+#: styles/metropolitan.json
+msgctxt "Style variation name"
+msgid "Metropolitan"
+msgstr ""
+
+#: styles/metropolitan.json
+msgctxt "Style variation description"
+msgid "Monochrome and tight, for a city agency. Square corners, one sharp accent, headings set close."
+msgstr ""
+
+#: styles/nocturne.json
+msgctxt "Style variation name"
+msgid "Nocturne"
+msgstr ""
+
+#: styles/nocturne.json
+msgctxt "Style variation description"
+msgid "Dark, for agencies selling at the top of the market. Photographs carry the page and the interface gets out of the way."
+msgstr ""
+
+#: styles/nocturne.json
+msgctxt "Color name"
+msgid "Night"
+msgstr ""
+
+#: styles/sandstone.json
+msgctxt "Style variation name"
+msgid "Sandstone"
+msgstr ""
+
+#: styles/sandstone.json
+msgctxt "Style variation description"
+msgid "Warm stone, soft corners and a muted olive accent. Reads as established rather than new."
+msgstr ""
+
+#: styles/terracotta.json
+msgctxt "Style variation name"
+msgid "Terracotta"
+msgstr ""
+
+#: styles/terracotta.json
+msgctxt "Style variation description"
+msgid "Clay, cream and a deep teal. Made for Mediterranean stock and warm photography."
+msgstr ""
+
+#: styles/terracotta.json
+msgctxt "Color name"
+msgid "Cream"
+msgstr ""
